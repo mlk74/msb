@@ -56,7 +56,9 @@
               <h5 class="card-title"><?=$row["title"];?></h5>
               <p class="card-text"><b>Description:</b> <?=$row["description"]?></p>
             </div>
+            
             <?php
+                  // Follow Button
                   $query2 = "SELECT * FROM inspirer_follow, users, inspirers WHERE users.id = '".$_SESSION["User_ID"]."'  AND user_id = inspirers.id AND users.id = follower_id ";
                   $res2 = mysqli_query($conn,$query2);
                   if (mysqli_num_rows($res2) > 0){
@@ -72,7 +74,7 @@
                   
                   ?>
                   <?php
-                  
+                  // Database - Follow Function
                   if(isset($_POST['insert'])) {
                     $query3 = "INSERT INTO `inspirer_follow`(`user_id`, `follower_id`) VALUES ('" . $row["post_inspirer_id"] . "','" . $_SESSION["User_ID"] . "')";
                         if (mysqli_query($conn, $query3)) {

@@ -11,6 +11,11 @@ include("includes/db_helper.php");
   <script type="text/javascript" src="assets/js/jquery.min.js"></script>
   <script type="text/javascript" src="assets/js/popper.min.js"></script>
   <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+  <script>function changeName()
+   {
+
+       document.getElementById[unfbutton].innerHTML += "Done";
+   }</script>
  
   
   <style>
@@ -51,6 +56,7 @@ color: black;
   </style>
 </head>
 <body>
+  
   <?php include("includes/header.php"); ?>
   <div class="container">
     <div class="row">
@@ -110,7 +116,8 @@ color: black;
                     <p><br><br></p>
                     <?php
           
-          $query = "SELECT * FROM `inspirer_follow` WHERE follower_id = '".$_SESSION["User_ID"]."' ";
+          $query = "SELECT user_id, inspirers.id, name,fields FROM `inspirer_follow` LEFT JOIN `inspirers`
+           ON user_id=inspirers.id WHERE inspirer_follow.follower_id='".$_SESSION["User_ID"]."' ORDER BY user_id";
           $res = mysqli_query($conn,$query); 
       
     
@@ -124,28 +131,54 @@ color: black;
             width='55'>
              <div class='d-flex flex-column align-items-start ml-2'>";
                
-             $a=$row['user_id'];
-                  echo "<span class='font-weight-bold'>$a</span>";
+             $rowname=$row['name'];
+             $rowfields=$row['fields'];
+                  echo "<span class='font-weight-bold'>$rowname</span>";
                  
              
-               echo" <span class='followers'>##folor</span></div>
+               echo" <span class='followers'>$rowfields</span></div>
             </div>
             <!-- folo button-->
-            <div class='d-flex flex-row align-items-center mt-2'>
-              <button class='btn btn-outline-primary btn-sm'
-               type='button'>Follow</button></div>
-        </div>
+            
+            <div class='d-flex flex-row align-items-center mt-2'>";
+            $query2 = "SELECT * FROM inspirer_follow, users, inspirers WHERE users.id = '".$_SESSION["User_ID"]."'  AND user_id = inspirers.id AND users.id = follower_id ";
+            $res2 = mysqli_query($conn,$query2);
+            if (mysqli_num_rows($res2) > 0){
+              echo "<form method='post'>";
+              echo "<input class='btn' id='unfbutton' type='submit' name='delete' value='Unfollow'  onclick='changeName()' />";   // Appears when user is already following
+              echo "</form>";
+            }
+            else{
+              echo "<form method='post'>";
+              echo "<input class='btn' type='submit' name='insert' value='Follow' />";   // Appears when user is not following
+              echo "</form>";
+            }
+            
+        echo "</div>";
             
             
-            ";
             
-
+            // Database - Follow Function
+            if(isset($_POST['insert'])) {
+              $query3 = "INSERT INTO `inspirer_follow`(`user_id`, `follower_id`) VALUES ('" . $row["user_id"] . "','" . $_SESSION["User_ID"] . "')";
+                  if (mysqli_query($conn, $query3)) {
+                    echo 'Done';
+                  }
+              } else if (isset($_POST['delete'])){
+                $query3 = "DELETE FROM `inspirer_follow` WHERE `user_id` =  '" . $row["user_id"] . "' AND `follower_id` = '" . $_SESSION["User_ID"] . "'";
+                if (mysqli_query($conn, $query3)) {
+                }
         }
+
+        }?>
     
   
   
-      ?>
-                    
+    
+                  
+                  <?php
+                  
+               ?>   
                     
                     
                 </div>
