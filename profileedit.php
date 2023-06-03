@@ -73,7 +73,9 @@ justify-content: center;
       <div class="col col-lg-9 col-xl-7">
         <div class="card">
           <div class="rounded-top text-white d-flex flex-row" style="background-color:#AEC69F; height:250px;">
-          
+          <form action="profile.php"method='post' style="height: 15px">
+               <input class='btn' type='submit' value='Go Back' style="bottom:0" />
+          </form>
             <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
               <img src="assets/images/profilepage.png"
                 alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
@@ -84,8 +86,25 @@ justify-content: center;
               </button> -->
             </div>
             <!-- Name  -->
-            <div class="ms-3" style="margin-top: 130px;">
-              <h5 style="color:black;"><?php if(isset($_SESSION["User_NAME"])) { echo $_SESSION["User_NAME"]; } ?></h5>
+            <div class="ms-3" style="margin-top: 130px; margin-bottom: 150px;">
+            
+
+              <?php if(isset($_SESSION["User_NAME"])) {
+                echo '
+                <form action="Profile_update.php" method="post">
+                fname: <input type="text" name="fname" placeholder="'.$_SESSION["User_NAME"].'"><br>
+              
+                city: <input type="text" name="city" placeholder="'.$_SESSION["User_City"].'"><br>
+              
+                
+                <input type="submit" name="edit" value="Save">
+                <br>
+                <br>
+                <br>
+                
+             </form>
+                ';
+                echo $_SESSION["User_NAME"]; } ?></h5>
               <!-- end -->
               <!-- City -->
               <?php 
@@ -97,12 +116,43 @@ justify-content: center;
               <p style="color:black;"><?php echo $rowc[0] ?></p>
               <!-- end -->
             </div>
-            
           </div>
-          <form action="profileedit.php"method='post'>
-               <input class='btn' type='submit' value='Edit Profile' />
-          </form>
 
+          <?php
+ 
+ if(isset($_POST['edit']))
+ {
+    $id=$_SESSION['id'];
+    $fname=$_POST['fname'];
+    $city=$_POST['city'];
+    
+    $select= "select * from users where id= '".$_SESSION["User_ID"]."'";
+    $sql = mysqli_query($conn,$select);
+    $row = mysqli_fetch_assoc($sql);
+    $res= $row['id'];
+    if($res === $id)
+    {
+   
+       $update = "update users set fname='$fname',city='$city' where id='$id'";
+       $sql2=mysqli_query($conn,$update);
+if($sql2)
+       { 
+           /*Successful*/
+           header('location:profile.php');
+       }
+       else
+       {
+           /*sorry your profile is not update*/
+           header('location:Profile_edit_form.php');
+       }
+    }
+    else
+    {
+        /*sorry your id is not match*/
+        header('location:Profile_edit_form.php');
+    }
+ }
+?>
           <?php 
 
 

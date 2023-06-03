@@ -41,6 +41,7 @@
                 $_SESSION["User_ID"] = $row["id"];
                 $_SESSION["User_NAME"] = $row["username"];
                 $_SESSION["User_Email"] = $row["email"];
+                $_SESSION["User_City"] = $row["city"];
                
                 echo '<script>location.href="home.php";</script>';
                 
