@@ -120,7 +120,9 @@
                     <div class="form-group">
                         <label class="label-style">Password</label>
                         <input class="form-control form-control-lg" name="password" placeholder="Password" type="password" required>
+                        <div class="link forget-pass text-left"><a href="forgot-password.php">Forgot password?</a></div>
                     </div>
+                    
                     <div class="form-group">
                         <button type="submit" name="usersignin" class="btn btn-success btn-lg btn-block">Sign In</button>
                     </div>
