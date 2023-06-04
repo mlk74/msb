@@ -48,6 +48,38 @@
             } else {
                 echo '<script>location.href="index.php?signin=0";</script>';
             }
+
+
+
+            $email = mysqli_real_escape_string($conn, $_POST['email']);
+        $password = mysqli_real_escape_string($conn, $_POST['password']);
+        $check_email = "SELECT * FROM users WHERE email = '$email'";
+        $res = mysqli_query($conn, $check_email);
+        if(mysqli_num_rows($res) > 0){
+            $fetch = mysqli_fetch_assoc($res);
+            $fetch_pass = $fetch['password'];
+            if(password_verify($password, $fetch_pass)){
+                $_SESSION['email'] = $email;
+                $status = $fetch['status'];
+                if($status == 'verified'){
+                    $row = mysqli_fetch_array($res);
+                    $_SESSION["User_ID"] = $fetch["id"];
+                    $_SESSION["User_NAME"] = $fetch["username"];
+                    $_SESSION["User_Email"] = $fetch["email"];
+                    $_SESSION["User_City"] =$fetch["city"];
+                    echo '<script>location.href="index.php?signup=1";</script>';
+                    // header('location: home.php');
+                }else{
+                    $info = "It's look like you haven't still verify your email - $email";
+                    $_SESSION['info'] = $info;
+                    header('location: user-otp.php');
+                }
+            }else{
+                $errors['email'] = "Incorrect email or password!";
+            }
+        }else{
+            $errors['email'] = "Incorrect email or password!";
+        }
         }
     ?>
     

@@ -1,5 +1,6 @@
-<?php
 
+<?php
+  require_once "includes/controllerUserData.php";
   if(!isset($_SESSION["User_ID"])){
       echo '<script>location.href="index.php";</script>';
   }

@@ -117,11 +117,11 @@ if(isset($_POST['signup'])){
                 $_SESSION['email'] = $email;
                 $status = $fetch['status'];
                 if($status == 'verified'){
-                    $row = mysqli_fetch_array($result);
-                    $_SESSION["User_ID"] = $row["id"];
-                    $_SESSION["User_NAME"] = $row["username"];
-                    $_SESSION["User_Email"] = $row["email"];
-                    $_SESSION["User_City"] = $row["city"];
+                    $_SESSION["User_ID"] = $fetch["id"];
+                    $_SESSION["User_NAME"] = $fetch["username"];
+                    $_SESSION["User_Email"] = $fetch["email"];
+                    $_SESSION["User_City"] =$fetch["city"];
+                    echo '<script>location.href="home.php";</script>';
                     header('location: home.php');
                 }else{
                     $info = "It's look like you haven't still verify your email - $email";
