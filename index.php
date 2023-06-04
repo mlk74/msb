@@ -1,6 +1,6 @@
 <?php
 
-    include("includes/db_helper.php");
+    include("includes/controllerUserData.php");
     if(isset($_SESSION["User_ID"])){
         echo '<script>location.href="home.php";</script>';
     }
@@ -60,6 +60,7 @@
                 
                 <h1 align="center">Login</h1>
                 <br />
+
         <?php
             if(isset($_REQUEST["signup"])){
                 if($_REQUEST["signup"] == "1"){
@@ -113,9 +114,22 @@
             }
         ?>
                 <form name="form" method="post">
+                <?php
+                    if(count($errors) > 0){
+                        ?>
+                        <div class="alert alert-danger text-center">
+                            <?php
+                            foreach($errors as $showerror){
+                                echo $showerror;
+                            }
+                            ?>
+                        </div>
+                        <?php
+                    }
+                    ?>
                     <div class="form-group">
-                        <label class="label-style">Username</label>
-                        <input class="form-control form-control-lg" name="username" placeholder="Username" type="username" required>
+                        <label class="label-style">Email Address</label>
+                        <input class="form-control form-control-lg" name="email" placeholder="Email Address" type="email" required>
                     </div>
                     <div class="form-group">
                         <label class="label-style">Password</label>
@@ -124,7 +138,7 @@
                     </div>
                     
                     <div class="form-group">
-                        <button type="submit" name="usersignin" class="btn btn-success btn-lg btn-block">Sign In</button>
+                        <button type="submit" name="login" class="btn btn-success btn-lg btn-block">Sign In</button>
                     </div>
                 </form>
                 <p align="center">Don't have an account? <a href="signup.php">Sign Up</a></p>

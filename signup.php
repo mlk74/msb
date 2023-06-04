@@ -1,6 +1,6 @@
 <?php
 
-    include("includes/db_helper.php");
+    include("includes/controllerUserData.php");
     if(isset($_SESSION["User_ID"])){
         echo '<script>location.href="home.php";</script>';
     }
@@ -21,30 +21,33 @@
   </head>
   <body>
 
-    <?php
+    <!-- <?php
         
 
-        if (isset($_REQUEST["usersignup"])) {
-            $username = $_REQUEST["username"];
-            $email = $_REQUEST["email"];
-            $password = $_REQUEST["password"];
-            $city = $_REQUEST["city"];
-            $country = $_REQUEST["country"];
-            $dateob = $_REQUEST["dateob"];
-            $gender = $_REQUEST["gender"];
+        // if (isset($_REQUEST["usersignup"])) {
+        //     $username = $_REQUEST["username"];
+        //     $email = $_REQUEST["email"];
+        //     $password = $_REQUEST["password"];
+        //     $city = $_REQUEST["city"];
+        //     $country = $_REQUEST["country"];
+        //     $dateob = $_REQUEST["dateob"];
+        //     $gender = $_REQUEST["gender"];
+        //     $code = rand(999999, 111111);
+        //     $status = "notverified";
     
-            $sql = "SELECT * FROM users WHERE username= '$username'";
-            $result = mysqli_query($conn, $sql);
-            if (mysqli_num_rows($result) > 0) {
-                echo '<script>location.href="index.php?signup=2";</script>';
-            } else {
-                $query = "INSERT INTO `users`(`username`, `email`, `password`, `city`, `country`, `dateob`, `gender`) VALUES ('$username','$email','$password','$city','$country','$dateob','$gender')";
-                if (mysqli_query($conn, $query)) {
-                    echo '<script>location.href="index.php?signup=1";</script>';
-                }
-            }
-        }
-    ?>
+        //     $sql = "SELECT * FROM users WHERE username= '$username'";
+        //     $result = mysqli_query($conn, $sql);
+        //     if (mysqli_num_rows($result) > 0) {
+        //         echo '<script>location.href="index.php?signup=2";</script>';
+        //     } else {
+        //         $query = "INSERT INTO `users`(`username`, `email`, `password`, `city`, `country`, `dateob`, `gender`, `code`, `status`)
+        //          VALUES ('$username','$email','$password','$city','$country','$dateob','$gender', '$code', '$status')";
+        //         if (mysqli_query($conn, $query)) {
+        //             echo '<script>location.href="index.php?signup=1";</script>';
+        //         }
+        //     }
+        // }
+    ?> -->
     
     <div class="container-fluid h-100">
         <div class="row justify-content-center align-items-center h-100">
@@ -63,6 +66,10 @@
                     <div class="form-group">
                         <label class="label-style">Password*</label>
                         <input class="form-control form-control-lg" name="password" placeholder="Password" type="password" minlength="6" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="label-style">Confirm Password*</label>
+                        <input class="form-control form-control-lg" name="cpassword" placeholder="Confirm Password" type="password" minlength="6" required>
                     </div>
                     
                     <div class="form-group">
@@ -334,7 +341,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <button type="submit" name="usersignup" class="btn btn-success btn-lg btn-block">Sign Up</button>
+                        <button type="submit" name="signup" class="btn btn-success btn-lg btn-block">Sign Up</button>
                     </div>
                 </form>
                 <p align="center">Already have an account? <a href="index.php">Sign In</a></p>

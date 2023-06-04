@@ -27,108 +27,114 @@ $name = "";
 $errors = array();
 
 //if user signup button
-// if(isset($_POST['signup'])){
-//     $name = mysqli_real_escape_string($conn, $_POST['name']);
-//     $email = mysqli_real_escape_string($conn, $_POST['email']);
-//     $password = mysqli_real_escape_string($conn, $_POST['password']);
-//     $cpassword = mysqli_real_escape_string($conn, $_POST['cpassword']);
-//     if($password !== $cpassword){
-//         $errors['password'] = "Confirm password not matched!";
-//     }
-//     $email_check = "SELECT * FROM usertable WHERE email = '$email'";
-//     $res = mysqli_query($conn, $email_check);
-//     if(mysqli_num_rows($res) > 0){
-//         $errors['email'] = "Email that you have entered is already exist!";
-//     }
-//     if(count($errors) === 0){
-//         $encpass = password_hash($password, PASSWORD_BCRYPT);
-//         $code = rand(999999, 111111);
-//         $status = "notverified";
-//         $insert_data = "INSERT INTO usertable (name, email, password, code, status)
-//                         values('$name', '$email', '$encpass', '$code', '$status')";
-//         $data_check = mysqli_query($conn, $insert_data);
-//         if($data_check){
+if(isset($_POST['signup'])){
+    $username = mysqli_real_escape_string($conn, $_POST['username']);
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $password = mysqli_real_escape_string($conn, $_POST['password']);
+    $city = mysqli_real_escape_string($conn, $_POST['city']);
+    $country = mysqli_real_escape_string($conn, $_POST['country']);
+    $dateob = ($_POST['dateob']);
+    $gender = $_REQUEST["gender"];
+    $cpassword = mysqli_real_escape_string($conn, $_POST['cpassword']);
+    if($password !== $cpassword){
+        $errors['password'] = "Confirm password not matched!";
+    }
+    $email_check = "SELECT * FROM users WHERE email = '$email'";
+    $res = mysqli_query($conn, $email_check);
+    if(mysqli_num_rows($res) > 0){
+        header('location: index.php?signup=2');
+        exit();
+    }
+    if(count($errors) === 0){
+        $encpass = password_hash($password, PASSWORD_BCRYPT);
+        $code = rand(999999, 111111);
+        $status = "notverified";
+        $insert_data = "INSERT INTO `users`(`username`, `email`, `password`, `city`, `country`, `dateob`, `gender`, `code`, `status`)
+        VALUES ('$username','$email','$encpass','$city','$country','$dateob','$gender', '$code', '$status')";
+        $data_check = mysqli_query($conn, $insert_data);
+        if($data_check){
            
-//             try {
-//                 $mail->addAddress($email);
-//                 //Content
-//                 $mail->isHTML(true);                                  //Set email format to HTML
-//                 $mail->Subject = "Email Verification Code";
-//                 $mail->Body    = "Your verification code is $code";
+            try {
+                $mail->addAddress($email);
+                //Content
+                $mail->isHTML(true);                                  //Set email format to HTML
+                $mail->Subject = "Email Verification Code";
+                $mail->Body    = "Your verification code is $code";
 
-//                 $mail->send();
-//                 echo 'Message has been sent';
-//                 $info = "We've sent a verification code to your email - $email";
-//                 $_SESSION['info'] = $info;
-//                 $_SESSION['email'] = $email;
-//                 $_SESSION['password'] = $password;
-//                 header('location: user-otp.php');
-//                 exit();
-//             } catch (Exception $e) {
-//                 $errors['otp-error'] = "Failed while sending code!";
-//                 echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-//             }
-//         }else{
-//             $errors['db-error'] = "Failed while inserting data into database!";
-//         }
-//     }
+                $mail->send();
+                echo 'Message has been sent';
+                $info = "We've sent a verification code to your email - $email";
+                $_SESSION['info'] = $info;
+                $_SESSION['email'] = $email;
+                $_SESSION['password'] = $password;
+                header('location: user-otp.php');
+                exit();
+            } catch (Exception $e) {
+                $errors['otp-error'] = "Failed while sending code!";
+                echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            }
+        }else{
+            $errors['db-error'] = "Failed while inserting data into database!";
+        }
+    }
 
-// }
+}
     //if user click verification code submit button
-    // if(isset($_POST['check'])){
-    //     $_SESSION['info'] = "";
-    //     $otp_code = mysqli_real_escape_string($conn, $_POST['otp']);
-    //     $check_code = "SELECT * FROM usertable WHERE code = $otp_code";
-    //     $code_res = mysqli_query($conn, $check_code);
-    //     if(mysqli_num_rows($code_res) > 0){
-    //         $fetch_data = mysqli_fetch_assoc($code_res);
-    //         $fetch_code = $fetch_data['code'];
-    //         $email = $fetch_data['email'];
-    //         $code = 0;
-    //         $status = 'verified';
-    //         $update_otp = "UPDATE usertable SET code = $code, status = '$status' WHERE code = $fetch_code";
-    //         $update_res = mysqli_query($conn, $update_otp);
-    //         if($update_res){
-    //             $_SESSION['name'] = $name;
-    //             $_SESSION['email'] = $email;
-    //             header('location: home.php');
-    //             exit();
-    //         }else{
-    //             $errors['otp-error'] = "Failed while updating code!";
-    //         }
-    //     }else{
-    //         $errors['otp-error'] = "You've entered incorrect code!";
-    //     }
-    // }
+    if(isset($_POST['check'])){
+        $_SESSION['info'] = "";
+        $otp_code = mysqli_real_escape_string($conn, $_POST['otp']);
+        $check_code = "SELECT * FROM users WHERE code = $otp_code";
+        $code_res = mysqli_query($conn, $check_code);
+        if(mysqli_num_rows($code_res) > 0){
+            $fetch_data = mysqli_fetch_assoc($code_res);
+            $fetch_code = $fetch_data['code'];
+            $email = $fetch_data['email'];
+            $code = 0;
+            $status = 'verified';
+            $update_otp = "UPDATE users SET code = $code, status = '$status' WHERE code = $fetch_code";
+            $update_res = mysqli_query($conn, $update_otp);
+            if($update_res){
+                header('location: index.php?signup=1');
+                exit();
+            }else{
+                $errors['otp-error'] = "Failed while updating code!";
+            }
+        }else{
+            $errors['otp-error'] = "You've entered incorrect code!";
+        }
+    }
 
     //if user click login button
-    // if(isset($_POST['login'])){
-    //     $email = mysqli_real_escape_string($conn, $_POST['email']);
-    //     $password = mysqli_real_escape_string($conn, $_POST['password']);
-    //     $check_email = "SELECT * FROM usertable WHERE email = '$email'";
-    //     $res = mysqli_query($conn, $check_email);
-    //     if(mysqli_num_rows($res) > 0){
-    //         $fetch = mysqli_fetch_assoc($res);
-    //         $fetch_pass = $fetch['password'];
-    //         if(password_verify($password, $fetch_pass)){
-    //             $_SESSION['email'] = $email;
-    //             $status = $fetch['status'];
-    //             if($status == 'verified'){
-    //               $_SESSION['email'] = $email;
-    //               $_SESSION['password'] = $password;
-    //                 header('location: home.php');
-    //             }else{
-    //                 $info = "It's look like you haven't still verify your email - $email";
-    //                 $_SESSION['info'] = $info;
-    //                 header('location: user-otp.php');
-    //             }
-    //         }else{
-    //             $errors['email'] = "Incorrect email or password!";
-    //         }
-    //     }else{
-    //         $errors['email'] = "It's look like you're not yet a member! Click on the bottom link to signup.";
-    //     }
-    // }
+    if(isset($_POST['login'])){
+        $email = mysqli_real_escape_string($conn, $_POST['email']);
+        $password = mysqli_real_escape_string($conn, $_POST['password']);
+        $check_email = "SELECT * FROM users WHERE email = '$email'";
+        $res = mysqli_query($conn, $check_email);
+        if(mysqli_num_rows($res) > 0){
+            $fetch = mysqli_fetch_assoc($res);
+            $fetch_pass = $fetch['password'];
+            if(password_verify($password, $fetch_pass)){
+                $_SESSION['email'] = $email;
+                $status = $fetch['status'];
+                if($status == 'verified'){
+                    $row = mysqli_fetch_array($result);
+                    $_SESSION["User_ID"] = $row["id"];
+                    $_SESSION["User_NAME"] = $row["username"];
+                    $_SESSION["User_Email"] = $row["email"];
+                    $_SESSION["User_City"] = $row["city"];
+                    header('location: home.php');
+                }else{
+                    $info = "It's look like you haven't still verify your email - $email";
+                    $_SESSION['info'] = $info;
+                    header('location: user-otp.php');
+                }
+            }else{
+                $errors['email'] = "Incorrect email or password!";
+            }
+        }else{
+            $errors['email'] = "Incorrect email or password!";
+        }
+    }
 
     //if user click continue button in forgot password form
     if(isset($_POST['check-email'])){
