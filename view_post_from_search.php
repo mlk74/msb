@@ -127,7 +127,7 @@
         ?>
                 <div class="card mb-3" style='background-color: #506075;'>
                     <div id="-d" class="carousel slide" data-ride="carousel">
-                        <div class="carousel-inner" style=" background-color: #506075;>
+                        <div class="carousel-inner" style=" background-color: #506075 ";>
               <p class=" card-text"> <?=$row["video"];?></p>
                             <iframe style="display: block; margin: auto;" width="560" height="315"
                                 src="https://www.youtube.com/embed/<?php echo $row["embbed"]?>"
@@ -141,7 +141,7 @@
 
                     <div class="card-body" style=" background-color: #506075;">
                         <h5 class="card-title" style=" color:white"><?=$row["title"];?></h5>
-                        <p class="card-text" style=" color:white"><b style=background-color: #506075;>Description:></b>'
+                        <p class="card-text" style=" color:white"><b style="background-color: #506075";>Description:></b>'
                             <?=$row["description"]?></p>
                     </div>
                     <?php
