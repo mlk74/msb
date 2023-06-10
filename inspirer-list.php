@@ -154,32 +154,68 @@ include("includes/db_helper.php");
              $rowfields=$row['fields'];
                   echo "<span class='font-weight-bold'>$rowname</span>";
                  
-                  $a=$row['user_id']; 
-                  $_SESSION['insp_id']=$a;
+             
                echo" <span class='followers'>$rowfields</span></div>
             </div>
             <!-- folo button-->
-        <a href='inspirer/inspirer.php'>  
-          <div class='d-flex flex-row align-items-center mt-2'>
-              <button class='btn btn-outline-primary btn-sm'
-               type='button'>Profile</button></div></a>
-        </div>
+            
+            <div class='d-flex flex-row align-items-center mt-2'>";
+            $query2 = "SELECT * FROM inspirer_follow, users, inspirers WHERE users.id = '".$_SESSION["User_ID"]."'  AND user_id = inspirers.id AND users.id = follower_id ";
+            $res2 = mysqli_query($conn,$query2);
+            if (mysqli_num_rows($res2) > 0){
+              echo "<form method='post'>";
+              echo "<input class='btn' id='unfbutton' type='submit' name='delete' value='Unfollow'  onclick='changeName()' />";   // Appears when user is already following
+              echo "</form>";
+            }
+            else{
+              echo "<form method='post'>";
+              echo "<input class='btn' type='submit' name='insert' value='Follow' />";   // Appears when user is not following
+              echo "</form>";
+            }
+            
+        echo "</div>";
             
             
-            ";
             
-
+            // Database - Follow Function
+            if(isset($_POST['insert'])) {
+              $query3 = "INSERT INTO `inspirer_follow`(`user_id`, `follower_id`) VALUES ('" . $row["user_id"] . "','" . $_SESSION["User_ID"] . "')";
+                  if (mysqli_query($conn, $query3)) {
+                    echo 'Done';
+                  }
+              } else if (isset($_POST['delete'])){
+                $query3 = "DELETE FROM `inspirer_follow` WHERE `user_id` =  '" . $row["user_id"] . "' AND `follower_id` = '" . $_SESSION["User_ID"] . "'";
+                if (mysqli_query($conn, $query3)) {
+                }
         }
-       
+
+        }?>
+    
   
   
-      ?>
-
-
-
-                    </div>
+    
+                  
+                  <?php
+                  
+               ?>   
+                    
+                    
                 </div>
             </div>
         </div>
     </div>
+<<<<<<< HEAD
 </body>
+=======
+                                <script type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js'></script>
+                                <script type='text/javascript' src='#'></script>
+                                <script type='text/javascript' src='#'></script>
+                                <script type='text/javascript' src='#'></script>
+                                <script type='text/javascript' src='#'></script>                                <script type='text/javascript'>var myLink = document.querySelector('a[href="#"]');
+                                myLink.addEventListener('click', function(e) {
+                                  e.preventDefault();
+                                });</script>
+                            
+                                </body>
+                            </html>
+>>>>>>> 6011fc007d3d98b103b08f233fd50b227e32ef55

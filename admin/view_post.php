@@ -4,9 +4,8 @@
 
 ?>
 <html>
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>MasterSaudi</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
@@ -14,19 +13,18 @@
     <script type="text/javascript" src="assets/js/jquery.min.js"></script>
     <script type="text/javascript" src="assets/js/popper.min.js"></script>
     <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-</head>
-
-<body>
+  </head>
+  <body>
     <?php include("includes/header.php"); ?>
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <br /><br />
-                <h3 align="center">Video Details</h3>
-                <br /><br />
-            </div>
-            <div class="col-md-12">
-                <?php
+      <div class="row">
+        <div class="col-md-12">
+          <br /><br />
+          <h3 align="center">Posts Details</h3>
+          <br /><br />
+        </div>
+        <div class="col-md-12">
+        <?php
           $query = "SELECT * FROM social_post WHERE id = '".$_REQUEST["rid"]."'";
           $res = mysqli_query($conn,$query);
           $row = mysqli_fetch_array($res);

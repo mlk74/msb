@@ -1,6 +1,6 @@
 <?php
 
-    include("includes/db_helper.php");
+    include("includes/controllerUserData.php");
     if(isset($_SESSION["User_ID"])){
         echo '<script>location.href="home.php";</script>';
     }
@@ -103,24 +103,24 @@
                 <form name="form" method="post">
                     <div class="form-group">
                         <label class="label-style">Username*</label>
-                        <input class="form-control form-control-lg" name="username" placeholder="Username" type="text"
-                            required>
+                        <input class="form-control form-control-lg" name="username" placeholder="Username" type="text" required>
                     </div>
                     <div class="form-group">
                         <label class="label-style">Email Address*</label>
-                        <input class="form-control form-control-lg" name="email" placeholder="name@example.com"
-                            type="email" required>
+                        <input class="form-control form-control-lg" name="email" placeholder="name@example.com" type="email" required>
                     </div>
                     <div class="form-group">
                         <label class="label-style">Password*</label>
-                        <input class="form-control form-control-lg" name="password" placeholder="Password"
-                            type="password" minlength="6" required>
+                        <input class="form-control form-control-lg" name="password" placeholder="Password" type="password" minlength="6" required>
                     </div>
-
+                    <div class="form-group">
+                        <label class="label-style">Confirm Password*</label>
+                        <input class="form-control form-control-lg" name="cpassword" placeholder="Confirm Password" type="password" minlength="6" required>
+                    </div>
+                    
                     <div class="form-group">
                         <label class="label-style">Your Country*</label>
-                        <input list="country" type="text" name="country" placeholder="Your Country"
-                            class="form-control form-control-lg" required />
+                        <input list="country" type="text" name="country" placeholder="Your Country" class="form-control form-control-lg" required />
                         <datalist id="country">
                             <option value="Afghanistan" />
                             <option value="Albania" />
@@ -365,13 +365,11 @@
                     </div>
                     <div class="form-group">
                         <label class="label-style">Your City*</label>
-                        <input class="form-control form-control-lg" name="city" placeholder="Your City" type="text"
-                            required>
+                        <input class="form-control form-control-lg" name="city" placeholder="Your City" type="text" required>
                     </div>
                     <div class="form-group">
                         <label class="label-style">Date of Birth*</label>
-                        <input class="form-control form-control-lg" name="dateob" placeholder="User email" type="date"
-                            required>
+                        <input class="form-control form-control-lg" name="dateob" placeholder="User email" type="date" required>
                     </div>
                     <div class="form-group" style="padding: 0px; margin: 0px;">
                         <label class="label-style" required>Gender*</label>
@@ -384,14 +382,12 @@
                         </div>
                         <div class="form-check-inline">
                             <label class="form-check-label">
-                                <input type="radio" class="form-check-input" value="Female" name="gender"
-                                    required>Female
+                                <input type="radio" class="form-check-input" value="Female" name="gender" required>Female
                             </label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <button type="submit" name="usersignup" class="btn btn-success btn-lg btn-block">Sign
-                            Up</button>
+                        <button type="submit" name="signup" class="btn btn-success btn-lg btn-block">Sign Up</button>
                     </div>
                 </form>
                 <p align="center">Already have an account? <a href="index.php">Sign In</a></p>
@@ -403,6 +399,5 @@
 
     <script type="text/javascript" src="assets/js/jquery.min.js"></script>
     <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-</body>
-
+  </body>
 </html>

@@ -1,10 +1,8 @@
 <?php require_once "includes\controllerUserData.php"; ?>
-<!-- 2 -->
 <?php 
 $email = $_SESSION['email'];
 if($email == false){
-    echo '<script>location.href="index.php";</script>';
-    // header('Location:../index.php');  
+  header('Location: login-user.php');
 }
 ?>
 <!DOCTYPE html>
@@ -80,23 +78,23 @@ if($email == false){
                     <?php 
                     if(isset($_SESSION['info'])){
                         ?>
-                    <div class="alert alert-success text-center" style="padding: 0.4rem 0.4rem">
-                        <?php echo $_SESSION['info']; ?>
-                    </div>
-                    <?php
+                        <div class="alert alert-success text-center" style="padding: 0.4rem 0.4rem">
+                            <?php echo $_SESSION['info']; ?>
+                        </div>
+                        <?php
                     }
                     ?>
                     <?php
                     if(count($errors) > 0){
                         ?>
-                    <div class="alert alert-danger text-center">
-                        <?php
+                        <div class="alert alert-danger text-center">
+                            <?php
                             foreach($errors as $showerror){
                                 echo $showerror;
                             }
                             ?>
-                    </div>
-                    <?php
+                        </div>
+                        <?php
                     }
                     ?>
                     <div class="form-group">
@@ -109,7 +107,6 @@ if($email == false){
             </div>
         </div>
     </div>
-
+    
 </body>
-
 </html>

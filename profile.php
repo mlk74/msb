@@ -4,8 +4,12 @@
 
 ?>
 <html>
+<<<<<<< HEAD
 
 <head>
+=======
+  <head>
+>>>>>>> 6011fc007d3d98b103b08f233fd50b227e32ef55
     <title>MasterSaudi</title>
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css1/styles.css">
@@ -169,6 +173,7 @@
           
           
           ?>
+<<<<<<< HEAD
                             <div class="p-4 text-black" style="background-color: #3d3f42;">
                                 <div class="d-flex justify-content-end text-center py-1">
                                     <!--Num-Fields & Inspirers Followed  -->
@@ -191,6 +196,26 @@
                                 </div>
                             </div>
                             <!--     <div class="card-body p-4 text-black">
+=======
+          <div class="p-4 text-black" style="background-color: #f8f9fa;">
+            <div class="d-flex justify-content-end text-center py-1">
+              <!--Num-Fields & Inspirers Followed  -->
+            <div>
+            <a href="filed-folo.php"> <p class="Num-Fields-Followed"><?php echo $row2[0] ?></p></a>
+                <p class="small text-muted mb-0">Fields Followed</p>
+              </div>
+              <div class="px-3">
+             <a href="inspirer-list.php"><p class="Num-Inspirers-Followed"><?php echo $row[0] ?></p></a>
+                <p class="small text-muted mb-0">Inspirers Followed</p>
+              </div>
+                    <!-- end -->
+              <div>
+                
+              </div>
+            </div>
+          </div>
+     <!--     <div class="card-body p-4 text-black">
+>>>>>>> 6011fc007d3d98b103b08f233fd50b227e32ef55
             <div class="mb-5">
               <p class="lead fw-normal mb-1"><span class="about"style="color:black;">About</span></p>
               <div class="p-4" style="background-color: #f8f9fa;">
@@ -203,6 +228,7 @@
             
              
             </div> -->
+<<<<<<< HEAD
 
 
                         </div>
@@ -228,3 +254,29 @@
 </body>
 
 </html>
+=======
+            
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+            
+            <div class="row justify-content-center">
+            </div>
+          </form>
+          <form name="ratingform" method="post">
+          </form>
+          <br /><br />
+        </div>
+        <div class="col-md-12">
+          <div class="row">
+          
+    
+  </body>
+</html>
+>>>>>>> 6011fc007d3d98b103b08f233fd50b227e32ef55

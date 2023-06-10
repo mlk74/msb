@@ -1,10 +1,8 @@
 <?php require_once "includes/controllerUserData.php"; ?>
-<!-- 3 -->
 <?php 
 $email = $_SESSION['email'];
 if($email == false){
-    echo '<script>location.href="index.php";</script>';
-    // header('Location:../index.php');  
+  header('Location: login-user.php');
 }
 ?>
 <!DOCTYPE html>
@@ -80,32 +78,30 @@ if($email == false){
                     <?php 
                     if(isset($_SESSION['info'])){
                         ?>
-                    <div class="alert alert-success text-center">
-                        <?php echo $_SESSION['info']; ?>
-                    </div>
-                    <?php
+                        <div class="alert alert-success text-center">
+                            <?php echo $_SESSION['info']; ?>
+                        </div>
+                        <?php
                     }
                     ?>
                     <?php
                     if(count($errors) > 0){
                         ?>
-                    <div class="alert alert-danger text-center">
-                        <?php
+                        <div class="alert alert-danger text-center">
+                            <?php
                             foreach($errors as $showerror){
                                 echo $showerror;
                             }
                             ?>
-                    </div>
-                    <?php
+                        </div>
+                        <?php
                     }
                     ?>
                     <div class="form-group">
-                        <input class="form-control" type="password" name="password" placeholder="Create new password"
-                            required>
+                        <input class="form-control" type="password" name="password" placeholder="Create new password" required>
                     </div>
                     <div class="form-group">
-                        <input class="form-control" type="password" name="cpassword" placeholder="Confirm your password"
-                            required>
+                        <input class="form-control" type="password" name="cpassword" placeholder="Confirm your password" required>
                     </div>
                     <div class="form-group">
                         <input class="form-control button" type="submit" name="change-password" value="Change">
@@ -114,7 +110,6 @@ if($email == false){
             </div>
         </div>
     </div>
-
+    
 </body>
-
 </html>

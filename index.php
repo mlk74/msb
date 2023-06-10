@@ -1,8 +1,8 @@
 <?php
 
-    include("includes/db_helper.php");
+    include("includes/controllerUserData.php");
     if(isset($_SESSION["User_ID"])){
-        echo '<script>location.href="New/theme/index.php";</script>';
+        echo '<script>location.href="home.php";</script>';
     }
 
 ?>
@@ -155,20 +155,31 @@
             }
         ?>
                 <form name="form" method="post">
+                <?php
+                    if(count($errors) > 0){
+                        ?>
+                        <div class="alert alert-danger text-center">
+                            <?php
+                            foreach($errors as $showerror){
+                                echo $showerror;
+                            }
+                            ?>
+                        </div>
+                        <?php
+                    }
+                    ?>
                     <div class="form-group">
-                        <label class="label-style">Username</label>
-                        <input class="form-control form-control-lg" name="username" placeholder="Username"
-                            type="username" required>
+                        <label class="label-style">Email Address</label>
+                        <input class="form-control form-control-lg" name="email" placeholder="Email Address" type="email" required>
                     </div>
                     <div class="form-group">
                         <label class="label-style">Password</label>
-                        <input class="form-control form-control-lg" name="password" placeholder="Password"
-                            type="password" required>
+                        <input class="form-control form-control-lg" name="password" placeholder="Password" type="password" required>
                         <div class="link forget-pass text-left"><a href="forgot-password.php">Forgot password?</a></div>
                     </div>
+                    
                     <div class="form-group">
-                        <button type="submit" name="usersignin" class="btn btn-success btn-lg btn-block">Sign
-                            In</button>
+                        <button type="submit" name="login" class="btn btn-success btn-lg btn-block">Sign In</button>
                     </div>
                 </form>
                 <p align="center">Don't have an account? <a href="signup.php">Sign Up</a></p>
@@ -181,6 +192,5 @@
 
     <script type="text/javascript" src="assets/js/jquery.min.js"></script>
     <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-</body>
-
+  </body>
 </html>
