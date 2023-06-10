@@ -36,18 +36,20 @@ if(isset($_POST['signup'])){
     $dateob = ($_POST['dateob']);
     $gender = $_REQUEST["gender"];
     $cpassword = mysqli_real_escape_string($conn, $_POST['cpassword']);
+    // Check Confirm Password
     if($password !== $cpassword){
         $errors['password'] = "Confirm password not matched!";
     }
+    // Check if email already exists
     $email_check = "SELECT * FROM users WHERE email = '$email'";
     $res = mysqli_query($conn, $email_check);
-    if(mysqli_num_rows($res) > 0){
+    if(mysqli_num_rows($res) > 0){ // Email Already Exists
         header('location: index.php?signup=2');
         exit();
     }
     if(count($errors) === 0){
-        $encpass = password_hash($password, PASSWORD_BCRYPT);
-        $code = rand(999999, 111111);
+        $encpass = password_hash($password, PASSWORD_BCRYPT); // Password Encryption
+        $code = rand(999999, 111111); // Verification Code Generation
         $status = "notverified";
         $insert_data = "INSERT INTO `users`(`username`, `email`, `password`, `city`, `country`, `dateob`, `gender`, `code`, `status`)
         VALUES ('$username','$email','$encpass','$city','$country','$dateob','$gender', '$code', '$status')";
@@ -117,6 +119,7 @@ if(isset($_POST['signup'])){
                 $_SESSION['email'] = $email;
                 $status = $fetch['status'];
                 if($status == 'verified'){
+                    //Register session
                     $_SESSION["User_ID"] = $fetch["id"];
                     $_SESSION["User_NAME"] = $fetch["username"];
                     $_SESSION["User_Email"] = $fetch["email"];
@@ -124,6 +127,7 @@ if(isset($_POST['signup'])){
                     echo '<script>location.href="home.php";</script>';
                     header('location: home.php');
                 }else{
+                    // Email Registered, but unverified
                     $info = "It's look like you haven't still verify your email - $email";
                     $_SESSION['info'] = $info;
                     header('location: user-otp.php');
@@ -142,7 +146,7 @@ if(isset($_POST['signup'])){
         $check_email = "SELECT * FROM users WHERE email='$email'";
         $run_sql = mysqli_query($conn, $check_email);
         if(mysqli_num_rows($run_sql) > 0){
-            $code = rand(999999, 111111);
+            $code = rand(999999, 111111); // OTP Random  Generation
             $insert_code = "UPDATE users SET code = $code WHERE email = '$email'";
             $run_query =  mysqli_query($conn, $insert_code);
             if($run_query){
@@ -201,8 +205,8 @@ if(isset($_POST['signup'])){
         }else{
             $code = 0;
             $email = $_SESSION['email']; //getting this email using session
-            // $encpass = password_hash($password, PASSWORD_BCRYPT);
-            $update_pass = "UPDATE users SET code = $code, password = /*'$encpass'*/'$cpassword' WHERE email = '$email'";
+            $encpass = password_hash($password, PASSWORD_BCRYPT); // Encryption
+            $update_pass = "UPDATE users SET code = $code, password = '$encpass' WHERE email = '$email'";
             $run_query = mysqli_query($conn, $update_pass);
             if($run_query){
                 $info = "Your password changed. Now you can login with your new password.";
