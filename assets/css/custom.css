@@ -1,0 +1,82 @@
+.rate {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+}
+.rate:not(:checked) > input {
+    position:absolute;
+    /*top:-9999px;*/
+    clip:rect(0,0,0,0);
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#000;
+}
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate > input:checked ~ label {
+    color: #ffcf23;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #ffcf23; 
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #ffcf23;
+}
+.your-centered-div {
+    width: 560px; /* you have to have a size or this method doesn't work */
+    height: 315px; /* think about making these max-width instead - might give you some more responsiveness */
+
+    position: absolute; /* positions out of the flow, but according to the nearest parent */
+    top: 0; right: 0; /* confuse it i guess */
+    bottom: 0; left: 0;
+    margin: auto; /* make em equal */
+}
+.crate {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+}
+.crate:not(:checked) > input {
+    position:absolute;
+    /*top:-9999px;*/
+    clip:rect(0,0,0,0);
+}
+.crate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    font-size:30px;
+    color:#000;
+    pointer-events:none;
+}
+.crate:not(:checked) > label:before {
+    content: '★ ';
+}
+.crate > input:checked ~ label {
+    color: #ffcf23;    
+}
+
+.hero{
+    width: 100%;
+height: 100vh;
+background: #f1f9ff;
+display: flex;
+align-items: center;
+flex-direction: column;
+justify-content: center;
+
+}
+/*               */

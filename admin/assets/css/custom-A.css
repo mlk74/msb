@@ -1,0 +1,41 @@
+.textbox{
+    position: absolute;
+    width: 250px;
+    
+}
+.textbox input{
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #AEC69F;
+    border-radius: 10px;
+    outline: none;
+    font-size: 1em;
+    color: black;
+}
+.textbox span{
+   position:absolute ; 
+   left: 0;
+   padding: 10px;
+   pointer-events: none;
+   font-size: 1em;
+   text-transform: uppercase;
+   color: #AEC69F;
+   transition: 0.5s ;
+}
+.textbox input:valid ~ span,
+.textbox input:focus ~ span
+{
+color: #86bc64;
+transform: translateX(10px)translateY(-7px);
+font-size: 0.65em;
+padding:0 10px;
+border-left: 1px solid #71955b;
+border-right: 1px solid#71955b;
+
+}
+.but-upload-video{
+    background-color: #AEC69F;
+    margin: 30px 0px;
+    border-radius: 5px;
+    border:#AEC69F
+}
