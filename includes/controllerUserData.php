@@ -4,6 +4,7 @@ require "includes/db_helper.php";
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 
+
 require 'vendor/autoload.php';
 
 //Emailer Details
