@@ -1,6 +1,6 @@
 <?php
 
-    include("includes/db_helper.php");
+    include("includes/controllerUserData.php");
     if(isset($_SESSION["User_ID"])){
         echo '<script>location.href="home.php";</script>';
     }
@@ -115,6 +115,10 @@
                         <label class="label-style">Password*</label>
                         <input class="form-control form-control-lg" name="password" placeholder="Password"
                             type="password" minlength="6" required>
+                            <div class="form-group">
+                        <label class="label-style">Confirm Password*</label>
+                        <input class="form-control form-control-lg" name="cpassword" placeholder="Confirm Password" type="password" minlength="6" required>
+                    </div>
                     </div>
 
                     <div class="form-group">
@@ -390,7 +394,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <button type="submit" name="usersignup" class="btn btn-success btn-lg btn-block">Sign
+                        <button type="submit" name="signup" class="btn btn-success btn-lg btn-block">Sign
                             Up</button>
                     </div>
                 </form>
