@@ -3,6 +3,15 @@
   include("includes/db_helper.php");
 
 ?>
+<?php
+  // Retrieve Post Details
+          $query = "SELECT * FROM social_post WHERE id = '".$_REQUEST["rid"]."'";
+          $res = mysqli_query($conn,$query);
+          $row = mysqli_fetch_array($res);
+          $date = $row['created'];
+          $day_month = date('d M Y', strtotime($date));
+
+        ?>
 <html>
 
 <head>
@@ -143,6 +152,7 @@
                         <h5 class="card-title" style=" color:white"><?=$row["title"];?></h5>
                         <p class="card-text" style=" color:white"><b style=" color:white">Description:</b>
                             <?=$row["description"]?></p>
+                        <p class="card-text"><b>Uploaded:</b> <?=$day_month?></p>
                     </div>
                     <?php
                   $query2 = "SELECT * FROM inspirer_follow, users, inspirers WHERE users.id = '".$_SESSION["User_ID"]."'  AND user_id = inspirers.id AND users.id = follower_id ";

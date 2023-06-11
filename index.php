@@ -1,6 +1,6 @@
 <?php
 
-    include("includes/db_helper.php");
+    include("includes/controllerUserData.php");
     if(isset($_SESSION["User_ID"])){
         echo '<script>location.href="New/theme/index.php";</script>';
     }
@@ -73,24 +73,53 @@
 
     <?php
 
-        if(isset($_REQUEST['usersignin'])){
-            $username = $_REQUEST["username"];
-            $pass = $_REQUEST["password"];
+        // if(isset($_REQUEST['usersignin'])){
+        //     $username = $_REQUEST["username"];
+        //     $pass = $_REQUEST["password"];
 
-            $sql ="SELECT * FROM users WHERE username= '$username' AND password = '$pass'";
-            $result=mysqli_query($conn, $sql);
-            if(mysqli_num_rows($result) > 0){
-                $row = mysqli_fetch_array($result);
-                $_SESSION["User_ID"] = $row["id"];
-                $_SESSION["User_NAME"] = $row["username"];
-                $_SESSION["User_Email"] = $row["email"];
-            //    kjsdfkpjweopijrfwie
-                echo '<script>location.href="New/Theme/index.php";</script>';
+        //     $sql ="SELECT * FROM users WHERE username= '$username' AND password = '$pass'";
+        //     $result=mysqli_query($conn, $sql);
+        //     if(mysqli_num_rows($result) > 0){
+        //         $row = mysqli_fetch_array($result);
+        //         $_SESSION["User_ID"] = $row["id"];
+        //         $_SESSION["User_NAME"] = $row["username"];
+        //         $_SESSION["User_Email"] = $row["email"];
+        //     //    kjsdfkpjweopijrfwie
+        //         echo '<script>location.href="New/Theme/index.php";</script>';
                 
-            } else {
-                echo '<script>location.href="index.php?signin=0";</script>';
-            }
-        }
+        //     } else {
+        //         echo '<script>location.href="index.php?signin=0";</script>';
+        //     }
+        // }
+        // $email = mysqli_real_escape_string($conn, $_POST['email']);
+        // $password = mysqli_real_escape_string($conn, $_POST['password']);
+        // $check_email = "SELECT * FROM users WHERE email = '$email'";
+        // $res = mysqli_query($conn, $check_email);
+        // if(mysqli_num_rows($res) > 0){
+        //     $fetch = mysqli_fetch_assoc($res);
+        //     $fetch_pass = $fetch['password'];
+        //     if(password_verify($password, $fetch_pass)){
+        //         $_SESSION['email'] = $email;
+        //         $status = $fetch['status'];
+        //         if($status == 'verified'){
+        //             $row = mysqli_fetch_array($res);
+        //             $_SESSION["User_ID"] = $fetch["id"];
+        //             $_SESSION["User_NAME"] = $fetch["username"];
+        //             $_SESSION["User_Email"] = $fetch["email"];
+        //             $_SESSION["User_City"] =$fetch["city"];
+        //             echo '<script>location.href="index.php?signup=1";</script>';
+        //             // header('location: home.php');
+        //         }else{
+        //             $info = "It's look like you haven't still verify your email - $email";
+        //             $_SESSION['info'] = $info;
+        //             header('location: user-otp.php');
+        //         }
+        //     }else{
+        //         $errors['email'] = "Incorrect email or password!";
+        //     }
+        // }else{
+        //     $errors['email'] = "Incorrect email or password!";
+        // }
     ?>
 
     <div class="container-fluid h-100">
@@ -155,10 +184,22 @@
             }
         ?>
                 <form name="form" method="post">
+                <?php
+                    if(count($errors) > 0){
+                        ?>
+                        <div class="alert alert-danger text-center">
+                            <?php
+                            foreach($errors as $showerror){
+                                echo $showerror;
+                            }
+                            ?>
+                        </div>
+                        <?php
+                    }
+                    ?>
                     <div class="form-group">
-                        <label class="label-style">Username</label>
-                        <input class="form-control form-control-lg" name="username" placeholder="Username"
-                            type="username" required>
+                    <label class="label-style">Email Address</label>
+                        <input class="form-control form-control-lg" name="email" placeholder="Email Address" type="email" required>
                     </div>
                     <div class="form-group">
                         <label class="label-style">Password</label>
@@ -167,8 +208,7 @@
                         <div class="link forget-pass text-left"><a href="forgot-password.php">Forgot password?</a></div>
                     </div>
                     <div class="form-group">
-                        <button type="submit" name="usersignin" class="btn btn-success btn-lg btn-block">Sign
-                            In</button>
+                        <button type="submit" name="login" class="btn btn-success btn-lg btn-block">Sign In</button
                     </div>
                 </form>
                 <p align="center">Don't have an account? <a href="signup.php">Sign Up</a></p>
