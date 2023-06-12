@@ -148,7 +148,6 @@ include("includes/controllerUserData.php");
                 <form method="post" enctype="multipart/form-data">
                 fname: <input type="text" name="fname" placeholder="'.$_SESSION["User_NAME"].'"><br>
               
-                city: <input type="text" name="city" placeholder="'.$_SESSION["User_City"].'"><br>
 
                 <label for="img">Select image:</label>
                 <input type="file" id="img" name="img" accept="image/*">
@@ -164,14 +163,6 @@ include("includes/controllerUserData.php");
                 ';
                 echo $_SESSION["User_NAME"]; } ?></h5>
                                         <!-- end -->
-                                        <!-- City -->
-                                        <?php 
-              $queryc = "SELECT city FROM users WHERE id= '".$_SESSION["User_ID"]."'";
-              $result1c = mysqli_query($conn, $queryc);
-              $rowc = mysqli_fetch_row($result1c);
-              
-              ?>
-                                        <p style="color:black;"><?php echo $rowc[0] ?></p>
                                         <!-- end -->
                                     </div>
                                 </div>
@@ -228,7 +219,6 @@ if (isset($_POST['edit'])) {
     $fname = $_POST['fname'];
   }
 
-  $city = $_POST['city'];
   $picture = $_FILES['img'];
 
   // Image upload
@@ -238,14 +228,13 @@ if (isset($_POST['edit'])) {
   move_uploaded_file($tempname, $folder);
 
   // Update query
-  $updateQuery = "UPDATE users SET city = ?, picture = ?, username = ? WHERE id = ?";
+  $updateQuery = "UPDATE users SET  picture = ?, username = ? WHERE id = ?";
   $stmt = $conn->prepare($updateQuery);
 
-  $stmt->bind_param("sssi", $city, $folder, $fname, $id);
+  $stmt->bind_param("ssi", $folder, $fname, $id);
   
   if ($stmt->execute()) {
       $_SESSION["User_NAME"] = $fname;
-      $_SESSION["User_City"] = $city;
       echo '<script>location.href="profile.php";</script>';
   } else {
       echo 'Update failed.';

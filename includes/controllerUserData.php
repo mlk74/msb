@@ -31,10 +31,7 @@ if(isset($_POST['signup'])){
     $username = mysqli_real_escape_string($conn, $_POST['username']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = mysqli_real_escape_string($conn, $_POST['password']);
-    $city = mysqli_real_escape_string($conn, $_POST['city']);
-    $country = mysqli_real_escape_string($conn, $_POST['country']);
-    $dateob = ($_POST['dateob']);
-    $gender = $_REQUEST["gender"];
+    
     $cpassword = mysqli_real_escape_string($conn, $_POST['cpassword']);
     if($password !== $cpassword){
         $errors['password'] = "Confirm password not matched!";
@@ -50,7 +47,7 @@ if(isset($_POST['signup'])){
         $code = rand(999999, 111111);
         $status = "notverified";
         $insert_data = "INSERT INTO `users`(`username`, `email`, `password`, `city`, `country`, `dateob`, `gender`, `code`, `status`)
-        VALUES ('$username','$email','$encpass','$city','$country','$dateob','$gender', '$code', '$status')";
+        VALUES ('$username','$email','$encpass','0','0','11111111','0', '$code', '$status')";
         $data_check = mysqli_query($conn, $insert_data);
         if($data_check){
            

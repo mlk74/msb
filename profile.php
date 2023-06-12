@@ -160,14 +160,6 @@ if ($result->num_rows > 0) {
                 } ?>
                                     </h5>
                                     <!-- end -->
-                                    <!-- City -->
-                                    <?php 
-              $queryc = "SELECT city FROM users WHERE id= '".$_SESSION["User_ID"]."'";
-              $result1c = mysqli_query($conn, $queryc);
-              $rowc = mysqli_fetch_row($result1c);
-              
-              ?>
-                                    <p style="color:#bcc0c4;"><?php echo str_repeat('&nbsp;', 4) . $rowc[0] ?></p>
                                     <!-- end -->
                                 </div>
                             </div>
