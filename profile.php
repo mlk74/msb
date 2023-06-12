@@ -1,6 +1,17 @@
 <?php
 
   include("includes/db_helper.php");
+  $sql = "SELECT picture FROM users WHERE id = '".$_SESSION["User_ID"]."'";
+  $result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    $rowpic = $result->fetch_assoc();
+    $imageData = $rowpic['picture'];
+
+} else {
+    // Default picture if the user does not have a profile picture assigned
+    
+}
 
 ?>
 <html>
@@ -125,8 +136,14 @@
                                 style="background-color:#272a2e; height:200px;">
                                 <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
                                     <!-- img profile -->
-                                    <img src="assets/images/profilepage.png" alt="Generic placeholder image"
-                                        class="img-fluid img-thumbnail mt-4 mb-2" style="width: 150px; z-index: 1">
+                                    <?php
+                                     if (is_null($rowpic['picture']) || empty($rowpic['picture'] )){
+                                        echo '<img src="assets/images/profilepage.png" alt="Profile Picture">';
+                                    }
+                                    else{
+                                    echo '<img src="'.$rowpic['picture'].'" alt="Generic placeholder image"
+                                        class="img-fluid img-thumbnail mt-4 mb-2" style="width: 150px; z-index: 1">';}
+                                    ?>   
                                     <!-- <button type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark"
                 style="z-index: 1;">
                 Edit profile
@@ -154,7 +171,9 @@
                                     <!-- end -->
                                 </div>
                             </div>
-
+                            <form action="profileedit.php"method='post'>
+               <input class='btn' type='submit' value='Edit Profile' />
+          </form>
 
                             <?php 
 

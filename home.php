@@ -1,6 +1,7 @@
 <?php
 
   include("includes/db_helper.php");
+  header('location: New/Theme/index.php');
 
 ?>
 <html>

@@ -14,9 +14,9 @@
 if($search!=''){
   echo " <tr class ='search-res'> <th style='color:#57cbcc;'>";
  
-  echo "Video Title </th>";
+  echo "Title </th>";
   echo"<th style='color:#57cbcc;'>";
-  echo "Discretion</th> </tr>";
+  echo "Description</th> </tr>";
   while($data = mysqli_fetch_assoc($result))
   {
     echo"<tr style='color:#FFFFFF;'>
